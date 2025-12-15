@@ -6,7 +6,7 @@ import { RotatingLines } from 'react-loader-spinner'
 
 import styles from "./TableCoin.module.css"
 
-function TableCoins({coins,isLoading}) {
+function TableCoins({coins,isLoading,currency}) {
   return (
     <div className={styles.container}>
         {isLoading ? (
@@ -31,7 +31,7 @@ function TableCoins({coins,isLoading}) {
         </thead>
         <tbody>
             {coins.map(coin =>
-                <TableRow coin={coin} key={coin.id} />
+                <TableRow coin={coin} key={coin.id} currency={currency} />
             )}
         </tbody>
     </table>
@@ -43,16 +43,34 @@ function TableCoins({coins,isLoading}) {
 export default TableCoins
 
 const TableRow = ({
-    coin : {
+    currency,coin : {
     image,
     name,
     symbol,
     current_price,
     total_volume,
-    price_change_percentage_24h
+    price_change_percentage_24h}
+
 }
-}) => {
+) => {
+
+    
+let priceSymbol;
+    switch (currency) {
+        case 'eur':
+            priceSymbol = '€'; // یورو
+            break;
+        case 'jpy':
+            priceSymbol = '¥'; // ین ژاپن
+            break;
+        case 'usd':
+        default:
+            priceSymbol = '$'; // دلار (حالت پیش‌فرض)
+            break;
+    }
+
   return (
+    
         <tr>
             <td>
                         <div className={styles.symbol}>
@@ -64,7 +82,7 @@ const TableRow = ({
                         {name}
                     </td>
                     <td>
-                       ${current_price.toLocaleString()}
+                       {priceSymbol}{current_price.toLocaleString()} 
                     </td>
                     <td className={price_change_percentage_24h > 0 ? styles.success : styles.error}>
                         {price_change_percentage_24h != null ? price_change_percentage_24h.toFixed(2) : "--"}%
