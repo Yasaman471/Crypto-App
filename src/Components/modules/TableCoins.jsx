@@ -43,7 +43,8 @@ function TableCoins({coins,isLoading,currency}) {
 export default TableCoins
 
 const TableRow = ({
-    currency,coin : {
+    currency,
+    coin : {
     image,
     name,
     symbol,
@@ -54,18 +55,17 @@ const TableRow = ({
 }
 ) => {
 
-    
 let priceSymbol;
     switch (currency) {
         case 'eur':
-            priceSymbol = '€'; // یورو
+            priceSymbol = '€'; 
             break;
         case 'jpy':
-            priceSymbol = '¥'; // ین ژاپن
+            priceSymbol = '¥'; 
             break;
         case 'usd':
         default:
-            priceSymbol = '$'; // دلار (حالت پیش‌فرض)
+            priceSymbol = '$';
             break;
     }
 

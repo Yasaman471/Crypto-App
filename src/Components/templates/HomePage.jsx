@@ -13,7 +13,7 @@ function HomePage() {
 
 
     useEffect(()=>{
-      setIsLoading(true);
+        setIsLoading(true);
         const getData = async () => {
             try {
                 const res = await fetch(getCoinList(page,currency))
