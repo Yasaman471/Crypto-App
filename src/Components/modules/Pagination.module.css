@@ -25,10 +25,10 @@
     border-radius: 5px;
 }
 
-.disabled{
+.disabled {
     opacity: 0.3;
 }
 
-.selected{
+.selected {
     background-color: #3874ff;
 }
