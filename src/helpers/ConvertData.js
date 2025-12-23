@@ -8,4 +8,11 @@ const convertData = (data, type) => {
   return convertedData;
 };
 
-export { convertData };
+const formatLargeNumber = (value) => {
+  if (Math.abs(value) >= 1.0e9) {
+    // مثلاً برای میلیارد و بالاتر
+    return (value / 1.0e9).toFixed(2) + "B";
+  }
+};
+
+export { convertData, formatLargeNumber };

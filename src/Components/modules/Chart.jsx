@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { convertData } from "../../helpers/ConvertData";
+import { convertData, formatLargeNumber } from "../../helpers/ConvertData";
 import styles from "./Chart.module.css";
 import {
   ResponsiveContainer,
@@ -13,7 +13,7 @@ import {
 } from "recharts";
 
 function Chart({ chart, setChart }) {
-  const [type, setType] = useState("total_volumes");
+  const [type, setType] = useState("prices");
 
   const typeHandler = (event) => {
     if (event.target.tagName === "BUTTON") {
@@ -68,6 +68,13 @@ function Chart({ chart, setChart }) {
 export default Chart;
 
 const ChartComponent = ({ data, type }) => {
+  const yTickFormatter = (value) => {
+    if (type === "prices") {
+      return value.toFixed(1);
+    }
+    return formatLargeNumber(value);
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data}>
@@ -80,7 +87,11 @@ const ChartComponent = ({ data, type }) => {
           activeDot={{ r: 5 }}
         />
         <CartesianGrid stroke="#404042" />
-        <YAxis dataKey={type} domain={["auto", "auto"]} />
+        <YAxis
+          dataKey={type}
+          domain={["auto", "auto"]}
+          tickFormatter={yTickFormatter}
+        />
         <XAxis dataKey="date" hide />
         <Tooltip />
         <Legend />
